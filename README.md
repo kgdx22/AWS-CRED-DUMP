@@ -89,7 +89,10 @@ Run antivirus/malware scans to verify cleanup.
 <br />
 <br />
 <br />
+
+
 # Incident Report (*Optional*)
+
 ## <br />  Executive Summary
 <br /> On June 17, 2025, suspicious PowerShell activity was detected on an EC2 Windows host. A review of logs confirmed the download and execution of a known credential dumping script (Invoke-Mimikatz). Registry persistence was also observed, indicating an attempt to maintain access. The incident was contained, and mitigation steps were implemented.
 <br />
