@@ -6,6 +6,8 @@ Open PowerShell as Administrator and run the following command:
 
 <br />This is a benign base64-encoded PowerShell command (hi $Env:User) that mimics obfuscation often used in real attacks.
 
+![Screenshot 2025-06-17 194846](https://github.com/user-attachments/assets/0c62051c-23da-4eda-9434-ba26622e69e7)
+
 You can also simulate a registry-related command:
 >*Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "TestRunKey" -Value "cmd.exe"*
 
@@ -13,12 +15,15 @@ You can also simulate a registry-related command:
 
 ## Step 2: Run a Velociraptor Hunt
 <br />From your SIFT server:
+![velcdhunt](https://github.com/user-attachments/assets/f0bfcd27-6670-4619-a5b7-868de287e6f7)
 
 ***Artifacts to Use:***
 <br />*Windows.EventLogs.EvtxHunter*
 <br />*Windows.EventLogs.Sysmon.ProcessCreation*
 <br />*Windows.Triage.Sysmon*
 <br />*Detection.Yara.Process (optional for rule matching)*
+
+![velcredart](https://github.com/user-attachments/assets/4b34f5b3-09c0-4fc2-9c35-d2a3c1886487)
 
 No filters needed yet. Let it return everything, or filter by:
 
