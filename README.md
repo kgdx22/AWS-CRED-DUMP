@@ -40,9 +40,11 @@ Transfer the file to your Windows machine using your PS HTTP method or another s
 Use VS Code or Excel (if available) to search for these indicators:
 
 Search Terms:
-<br />"EncodedCommand"
-<br />"Set-ItemProperty"
-<br />"HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"
+<br />" *EncodedCommand* "
+<br />" *User* "
+<br />" *'EventID': 13* "
+<br />" *Credential* "
+<br />" \\\REGISTRY\\\ "
 
 You should see a process like:
 > powershell.exe -EncodedCommand aABpACAAJABFAE4AdgA6AFUAcwBlAHIA
