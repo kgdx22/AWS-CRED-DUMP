@@ -1,6 +1,6 @@
 # AWS-CRED-DUMP
 
-## **Step 1: Simulate the Incident**
+## Step 1: Simulate the Incident
 Open PowerShell as Administrator and run the following command:
 > <br />*powershell -EncodedCommand aABpACAAJABFAE4AdgA6AFUAcwBlAHIA*
 
@@ -11,7 +11,7 @@ You can also simulate a registry-related command:
 
 <br />This triggers Sysmon Event ID 13 for registry modifications—often seen in persistence mechanisms.
 
-## **Step 2: Run a Velociraptor Hunt**
+## Step 2: Run a Velociraptor Hunt
 <br />From your SIFT server:
 
 ***Artifacts to Use:***
@@ -36,13 +36,14 @@ Choose CSV Only or JSON Only
 
 Transfer the file to your Windows machine using your PS HTTP method or another safe option
 
-## **Step 4: Analyze the IOCs**
+## Step 4: Analyze the IOCs
 Use VS Code or Excel (if available) to search for these indicators:
 
 Search Terms:
 <br />" *EncodedCommand* "
 <br />" *User* "
 <br />" *'EventID': 13* "
+<br />" *'EventID': 4104* "
 <br />" *Credential* "
 <br />" \\\REGISTRY\\\ "
 
@@ -54,3 +55,27 @@ You should see a process like:
 >cmd.exe /c Set-ItemProperty ...
 >
 These mimic credential dumping or persistence behavior—common tactics in real attacks.
+
+# Remediation
+
+## Step 1. Remove Persistence 
+Delete the malicious Run key:
+> Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "TestRunKey"
+## Step 2. Delete Dropped Scripts (if any)
+If a payload was saved to disk, delete it.
+>Remove-Item "C:\Path\To\invoke-mimikatz.ps1"
+## Step 3. Change Credentials
+Since credentials may have been dumped:
+
+
+Change passwords for affected users (especially Administrator)
+
+In a real case, force domain-wide password reset
+
+## Step 4. Disable PowerShell Logging Bypass (optional hardening)
+Enforce ExecutionPolicy via Group Policy.
+Enable full PowerShell transcription logging.
+
+## Step 5. Update & Patch
+Apply any missing Windows security patches.
+Run antivirus/malware scans to verify cleanup.
