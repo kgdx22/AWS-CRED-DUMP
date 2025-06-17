@@ -2,7 +2,7 @@
 
 ## **Step 1: Simulate the Incident**
 Open PowerShell as Administrator and run the following command:
-> <br />*powershell -EncodedCommand aABpACAAJABFAE4AdgA6AFUAcwBlAHIA*'
+> <br />*powershell -EncodedCommand aABpACAAJABFAE4AdgA6AFUAcwBlAHIA*
 
 <br />This is a benign base64-encoded PowerShell command (hi $Env:User) that mimics obfuscation often used in real attacks.
 
