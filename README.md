@@ -87,8 +87,12 @@ Delete the malicious Run key:
 ## Step 2. Delete Dropped Scripts (if any)
 If a payload was saved to disk, delete it.
 >Remove-Item "C:\Path\To\invoke-mimikatz.ps1"
+
+![Screenshot 2025-06-17 201110](https://github.com/user-attachments/assets/dff716ba-2b1d-4280-9203-dcf98eaa2a02)
+
 ## Step 3. Change Credentials
 Since credentials may have been dumped:
+![velrsu5](https://github.com/user-attachments/assets/af34933a-20c3-4e0e-86b4-2e6c2db6c156)
 
 
 Change passwords for affected users (especially Administrator)
