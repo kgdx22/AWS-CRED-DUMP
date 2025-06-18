@@ -36,10 +36,12 @@ After 3–5 minutes:
 Go to your Hunt Manager
 
 Export the results:
+![velcredres](https://github.com/user-attachments/assets/8352a437-0c0f-4cb8-8505-58f410bf6b33)
 
 Choose CSV Only or JSON Only
 
 Transfer the file to your Windows machine using your PS HTTP method or another safe option
+![veltransfer](https://github.com/user-attachments/assets/77dd71db-776c-43d8-a9bd-0cbd75d8fdd9)
 
 ## Step 4: Analyze the IOCs
 Use VS Code or Excel (if available) to search for these indicators:
@@ -51,6 +53,27 @@ Search Terms:
 <br />" *'EventID': 4104* "
 <br />" *Credential* "
 <br />" \\\REGISTRY\\\ "
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e7967a00-d663-4d48-9ebf-5807e29d1f03" 
+       width="500" 
+       style="border:2px solid #ccc; border-radius:8px; margin:10px"/>
+  <img src="https://github.com/user-attachments/assets/caaa33a5-1b51-47b4-ac32-dbe26247a057" 
+       width="500" 
+       style="border:2px solid #ccc; border-radius:8px; margin:10px"/>
+</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/837b8480-19e3-4bf8-82be-08a0d820b84a" 
+       width="500" 
+       style="border:2px solid #ccc; border-radius:8px; margin:10px"/>
+  <img src="https://github.com/user-attachments/assets/ac69156b-14a8-4dea-b628-3d839c46491d" 
+       width="500" 
+       style="border:2px solid #ccc; border-radius:8px; margin:10px"/>
+</p>
+
+
+
+
 
 You should see a process like:
 > powershell.exe -EncodedCommand aABpACAAJABFAE4AdgA6AFUAcwBlAHIA
