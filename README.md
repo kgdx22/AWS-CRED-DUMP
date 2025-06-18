@@ -1,5 +1,25 @@
 # AWS-CRED-DUMP
 
+This lab was designed as part of my hands-on cybersecurity training to simulate a real-world credential dumping attack using benign methods. By emulating an attacker downloading and executing a simulated version of Invoke-Mimikatz, I was able to walk through the full DFIR (Digital Forensics and Incident Response) process — from detection to analysis and remediation.
+<br />
+
+The purpose of this project is to strengthen my blue team skills by:
+- Practicing detection of advanced threat behaviors like credential access (T1003).
+- Identifying Indicators of Compromise (IOCs) across different Windows logs.
+- Enhancing detection with custom Velociraptor artifacts.
+- Producing actionable incident reports, useful in real-world SOC and IR settings.
+<br />
+
+### Necessary Tools
+
+- Velociraptor – For endpoint detection, live hunting, artifact creation, and IOC triage.
+- Sysmon – For generating detailed Windows event logs including process creation and registry changes.
+- Visual Studio Code – For analyzing JSON output logs and searching for IOCs.
+- AWS EC2 Windows Instance – Used as the test workstation to safely simulate malicious activity.
+- PuTTY – Used to securely SSH into AWS instances and manage remote systems from a local Windows machine.
+- PowerShell – Used to run benign payloads and simulate attacker behavior.
+
+  
 ## Step 1: Simulate the Incident
 Open PowerShell as Administrator and run the following command:
 > <br />*powershell -EncodedCommand aABpACAAJABFAE4AdgA6AFUAcwBlAHIA*
@@ -17,7 +37,7 @@ You can also simulate a registry-related command:
 <br />From your SIFT server:
 ![velcdhunt](https://github.com/user-attachments/assets/f0bfcd27-6670-4619-a5b7-868de287e6f7)
 
-***Artifacts to Use:***
+### Artifacts to Use:
 <br />*Windows.EventLogs.EvtxHunter*
 <br />*Windows.EventLogs.Sysmon.ProcessCreation*
 <br />*Windows.Triage.Sysmon*
@@ -26,9 +46,8 @@ You can also simulate a registry-related command:
 ![velcredart](https://github.com/user-attachments/assets/4b34f5b3-09c0-4fc2-9c35-d2a3c1886487)
 
 No filters needed yet. Let it return everything, or filter by:
-
-<br />*Event ID = 1
-<br />*CommandLine contains *EncodedCommand* or *Set-ItemProperty*
+- Event ID = 1
+- CommandLine contains *EncodedCommand* or *Set-ItemProperty*
 
 ## **Step 3: Export the Results**
 After 3–5 minutes:
@@ -46,7 +65,7 @@ Transfer the file to your Windows machine using your PS HTTP method or another s
 ## Step 4: Analyze the IOCs
 Use VS Code or Excel (if available) to search for these indicators:
 
-Search Terms:
+### Search Terms:
 <br />" *EncodedCommand* "
 <br />" *User* "
 <br />" *'EventID': 13* "
